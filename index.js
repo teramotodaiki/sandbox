@@ -17,7 +17,9 @@ const popup = (function () {
 
       sendHandshake(frame, html)
       .then(addPort)
-      .then(run => run());
+      .then(function (run) {
+        run();
+      });
     };
 
     window.addEventListener('beforeunload', function () {
@@ -38,7 +40,9 @@ function refresh() {
 
   sendHandshake(frame, html)
   .then(addPort)
-  .then(run => run());
+  .then(function (run) {
+    run();
+  });
 }
 
 function addPort(port) {
@@ -46,7 +50,6 @@ function addPort(port) {
   const sendCode = function () {
     const code = document.getElementById('code').value;
     port.postMessage(code);
-    return port;
   };
   button.addEventListener('click', sendCode);
   return sendCode;
