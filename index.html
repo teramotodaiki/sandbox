@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style media="screen">
+        input[type="text"],
+        textarea {
+            font-size: 16px;
+            min-width: 480px;
+        }
+        body {
+            padding-bottom: 200px;
+        }
+        #run {
+            font-size: 16px;
+        }
+        </style>
+        <script async src="./index.js" charset="utf-8"></script>
+    </head>
+    <body onload="refresh();">
+        <h3>Sandbox iframe</h3>
+        <iframe id="result" sandbox="allow-scripts allow-modals"></iframe>
+        <div>
+            <button type="button" onclick="refresh();">Refresh this frame</button>
+            <button type="button" onclick="popup();">Open in new window</button>
+        </div>
+
+        <h3>JavaScript Code</h3>
+        <div>
+            <button type="button" id="run">> run</button>
+        </div>
+        <textarea id="code" rows="8">
+document.body.textContent = JSON.stringify(window.location);
+        </textarea>
+
+        <h3>Embed HTML (optional)</h3>
+        <h4>Plane text of HTML (default: the simplest evaluator)</h4>
+        <textarea id="html" rows="25">
+<script>
+const evaluate = function (event) {
+    try {
+        eval(event.data);
+    } catch (e) {
+        alert(e.message);
+    }
+};
+window.onmessage = function (event) {
+    event.ports[0].onmessage = evaluate;
+};
+</script>
+        </textarea>
+    </body>
+</html>
